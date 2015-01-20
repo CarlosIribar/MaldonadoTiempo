@@ -1,0 +1,157 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".TiempoenMaldonado"
+    android:background="#ff497aff">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="100"
+        android:id="@+id/temperaturLabel"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="150sp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/degree"
+        android:layout_alignTop="@+id/temperaturLabel"
+        android:layout_toRightOf="@+id/temperaturLabel"
+        android:layout_toEndOf="@+id/temperaturLabel"
+        android:src="@drawable/degree"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="At 5:pm will be"
+        android:id="@+id/timeLabel"
+        android:layout_above="@+id/temperaturLabel"
+        android:layout_centerHorizontal="true"
+        android:textColor="#80ffffff"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maldonado, Uruguay"
+        android:id="@+id/zoneLabel"
+        android:layout_above="@+id/timeLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iconTime"
+        android:layout_alignBottom="@+id/zoneLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/rain"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/temperaturLabel"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="VIENTO"
+                android:id="@+id/vientoView"
+                android:gravity="center_horizontal"
+                android:textColor="@color/whiteTransparente"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="23"
+                android:id="@+id/textView3"
+                android:gravity="center_horizontal"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="18dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HUMEDAD"
+                android:id="@+id/humityTitle"
+                android:textColor="@color/whiteTransparente"
+                android:gravity="center_vertical|center_horizontal"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="80%"
+                android:id="@+id/textView2"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LLUVIA"
+                android:id="@+id/lluviaTitulo"
+                android:textColor="@color/whiteTransparente"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="22"
+                android:id="@+id/valorLluviaText"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:gravity="center_horizontal|fill_vertical"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lluvia con alta probabilidad de granizo"
+        android:id="@+id/textViewSummary"
+        android:singleLine="true"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dp"/>
+
+</RelativeLayout>
