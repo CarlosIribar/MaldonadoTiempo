@@ -1,5 +1,7 @@
 package com.iribar.carlos.maldonadotiempo;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -9,13 +11,25 @@ import java.util.TimeZone;
  * Created by Carlos Iribar on 19/01/2015.
  */
 public class EstadoTiempo {
+    private final String TAG= "Estado del tiempo";
     private String mIcon;
     private long mTiempo;
     private double mHumedad;
     private double mTempertura;
+    private double mViento;
     private double mChanceLlover;
     private String mSummary;
     private String mTimeZone;
+
+    public double getViento() {
+        Log.d(TAG,mViento+"");
+        return mViento;
+    }
+
+    public void setViento(double viento) {
+        mViento = viento;
+    }
+
 
     public String getTimeZone() {
         return mTimeZone;
@@ -37,7 +51,7 @@ public class EstadoTiempo {
         return mIcon;
     }
     public int getIconId () {
-        int iconId = R.drawable.clear_day;
+      int iconId = R.drawable.clear_day;
 
         if (mIcon.equals("clear-day")) {
             iconId = R.drawable.clear_day;
@@ -84,24 +98,28 @@ public class EstadoTiempo {
         mTiempo = tiempo;
     }
 
-    public double getHumedad() {
-        return mHumedad;
+    public int getHumedad() {
+        Log.d(TAG,mHumedad+"");
+        return (int) Math.round(mHumedad*100);
     }
 
     public void setHumedad(double humedad) {
         mHumedad = humedad;
     }
 
-    public double getTempertura() {
-        return mTempertura;
+    public int getTempertura() {
+        Log.d(TAG,mTempertura+"");
+        return (int) Math.round(mTempertura);
     }
 
     public void setTempertura(double tempertura) {
         mTempertura = tempertura;
     }
 
-    public double getChanceLlover() {
-        return mChanceLlover;
+    public int getChanceLlover() {
+
+        Log.d(TAG,mChanceLlover+"");
+        return (int) Math.round(mChanceLlover *100);
     }
 
     public void setChanceLlover(double chanceLlover) {
@@ -109,6 +127,7 @@ public class EstadoTiempo {
     }
 
     public String getSummary() {
+        Log.d(TAG,mSummary);
         return mSummary;
     }
 

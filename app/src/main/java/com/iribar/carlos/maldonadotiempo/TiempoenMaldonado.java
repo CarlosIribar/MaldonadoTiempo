@@ -1,6 +1,7 @@
 package com.iribar.carlos.maldonadotiempo;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
@@ -9,7 +10,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.okhttp.Call;
@@ -26,17 +30,30 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class TiempoenMaldonado extends ActionBarActivity {
 
  private static final String TAG ="tiempo Maldonado";
  private EstadoTiempo mEstadoTiempo;
 
+    @InjectView(R.id.timeLabel) TextView mTimeLabel;
+    @InjectView(R.id.temperaturaLabel) TextView mTemperaturaLabel;
+    @InjectView(R.id.humedadLabel) TextView mHumedadLabel;
+    @InjectView(R.id.lluviaLabel) TextView mLluviaLabel;
+    @InjectView(R.id.summaryLabel) TextView mSummaryLabel;
+    @InjectView(R.id.iconView)     ImageView mIconView;
+    @InjectView(R.id.vientoLabel) TextView mVientoLabel;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tiempoen_maldonado);
+        ButterKnife.inject(this);
 
         double  latitude = -34.9;
         double longitud= -54.949999999999990;
@@ -67,7 +84,15 @@ public class TiempoenMaldonado extends ActionBarActivity {
                         Log.v(TAG, jsonObject);
                         if (response.isSuccessful()) {
 
-                            mEstadoTiempo =getDetallesTiempo(jsonObject);
+                            mEstadoTiempo = getDetallesTiempo(jsonObject);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d(TAG,mEstadoTiempo.getHumedad()+"dfdf");
+                                    actulizarVista();
+                                }
+                            });
+
 
                         } else {
                             alertAboutError();
@@ -88,6 +113,21 @@ public class TiempoenMaldonado extends ActionBarActivity {
 
     }
 
+    private void actulizarVista() {
+        mTemperaturaLabel.setText(mEstadoTiempo.getTempertura()+"");
+        mHumedadLabel.setText(mEstadoTiempo.getHumedad()+" %");
+        mLluviaLabel.setText(mEstadoTiempo.getChanceLlover()+"%");
+        mVientoLabel.setText(mEstadoTiempo.getViento()+"km/h");
+        mSummaryLabel.setText(mEstadoTiempo.getSummary()+"");
+        mTimeLabel.setText(mEstadoTiempo.getTiempoConFormato());
+        Drawable drawable = getResources().getDrawable(mEstadoTiempo.getIconId());
+        mIconView.setImageDrawable(drawable);
+
+
+
+
+    }
+
     private EstadoTiempo getDetallesTiempo(String jsonObject) throws JSONException {
 
             JSONObject tiempo = new JSONObject(jsonObject);
@@ -95,18 +135,20 @@ public class TiempoenMaldonado extends ActionBarActivity {
 
         EstadoTiempo estadoTiempo = new EstadoTiempo();
         estadoTiempo.setHumedad(tiempoActual.getDouble("humidity"));
+        Log.d("ASASS", estadoTiempo.getHumedad() + "");
         estadoTiempo.setTiempo(tiempoActual.getLong("time"));
         estadoTiempo.setTempertura(tiempoActual.getDouble("temperature"));
         estadoTiempo.setChanceLlover(tiempoActual.getDouble("precipProbability"));
         estadoTiempo.setIcon(tiempoActual.getString("icon"));
         estadoTiempo.setSummary(tiempoActual.getString("summary"));
         estadoTiempo.setTimeZone(tiempo.getString("timezone"));
+        estadoTiempo.setViento(tiempoActual.getDouble("windSpeed"));
 
         Log.d(TAG,estadoTiempo.getTiempoConFormato());
 
 
            Log.i(TAG,"Este es la zona"+tiempoActual);
-        return new EstadoTiempo();
+        return estadoTiempo;
 
     }
 
